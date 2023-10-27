@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #image-container {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+
+        #image-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #add-image-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container">
+        <!-- The image will be displayed here -->
+    </div>
+    <input type="file" id="image-input" style="display: none">
+    <button id="add-image-button">Add Image</button>
+
+    <script>
+        document.getElementById("add-image-button").addEventListener("click", function() {
+            document.getElementById("image-input").click();
+        });
+
+        document.getElementById("image-input").addEventListener("change", function(event) {
+            const imageContainer = document.getElementById("image-container");
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const image = document.createElement("img");
+                    image.src = e.target.result;
+                    imageContainer.innerHTML = ""; // Clear existing content
+                    imageContainer.appendChild(image);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
